@@ -116,17 +116,17 @@
 
                 <mat-form-field class="fieldContainer">
                   <mat-label>Piezas</mat-label>
-                  <input matInput placeholder="Cantidad" name="quantity" (keyup)="calculateTotalItemPrice(i)"
+                  <input matInput placeholder="Cantidad" name="quantity"
                     [(ngModel)]="saleItem.quantity" disabled>
                 </mat-form-field>
                 <mat-form-field class="fieldContainer">
                   <mat-label>Largo <sup>M2</sup></mat-label>
-                  <input matInput type="number" placeholder="Largo" name="length" (change)="calculateSize(i)"
+                  <input matInput type="number" placeholder="Largo" name="length"
                     [(ngModel)]="saleItem.length" disabled>
                 </mat-form-field>
                 <mat-form-field class="fieldContainer">
                   <mat-label>Ancho <sup>M2</sup></mat-label>
-                  <input matInput type="number" placeholder="Ancho" name="height" (change)="calculateSize(i)"
+                  <input matInput type="number" placeholder="Ancho" name="height"
                     [(ngModel)]="saleItem.height" disabled>
                 </mat-form-field>
                 <mat-form-field class="fieldContainer">
@@ -181,13 +181,13 @@
 
                 <mat-form-field class="fieldContainer">
                   <mat-label>Piezas *</mat-label>
-                  <input matInput disabled placeholder="Cantidad" name="quantity" (keyup)="calculateItemPrice(i)"
+                  <input matInput disabled placeholder="Cantidad" name="quantity"
                     [(ngModel)]="saleItem.quantity">
                 </mat-form-field>
                 <mat-form-field class="fieldContainer">
                   <mat-label>Precio *</mat-label>
-                  <input matInput type="number" disabled placeholder="Precio" name="unitPrice" (change)="calculateItemPrice(i)"
-                    (keyup)="calculateItemPrice(i)" [(ngModel)]="saleItem.unitPrice">
+                  <input matInput type="number" disabled placeholder="Precio" name="unitPrice"
+                     [(ngModel)]="saleItem.unitPrice">
                 </mat-form-field>
                 <mat-form-field class="fieldContainer">
                   <mat-label>Ajuste </mat-label>
@@ -227,9 +227,9 @@
 
       <div class="modal-footer">
           <div class="buttonsContainer">
-            <button mat-raised-button class="buttons" color="warn" (click)="closeModal(template)">Cerrar</button>
-            <button mat-raised-button class="buttons" color="primary" *ngIf="selectedSale.status == 'Por pagar'" (click)="openModalPayment(sale)">Abonar pago</button>
-            <button mat-raised-button class="buttons" color="primary" (click)="openSale(sale)">Imprimir</button>
+            <button mat-raised-button class="buttons" color="warn" (click)="closeModal()">Cerrar</button>
+            <button mat-raised-button class="buttons" color="primary" *ngIf="selectedSale.status == 'Por pagar'" (click)="openModalPayment()">Abonar pago</button>
+            <button mat-raised-button class="buttons" color="primary">Imprimir</button>
           </div>
       </div>
     </div>

@@ -1,15 +1,1 @@
-<ng-template #template>
-    <div class="modal-header">
-      <h4 class="modal-title pull-left">Total de Venta</h4>
-      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <h2 class="title">Total: <input type="number" [(ngModel)]="saleItem."> <span class="success-total">{{saleItem.totalSalePrice | currency: 'USD'}}</span></h2>
-    </div>
-    <div class="modal-footer">
-      <button mat-raised-button class="buttons" color="warn" (click)="closeModal(template)">Cancelar</button>
-      <button mat-raised-button class="buttons" (click)="saveOrder(template)" color="primary">Finalizar Venta</button>
-    </div>
-  </ng-template>
+

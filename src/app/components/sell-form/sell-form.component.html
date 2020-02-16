@@ -91,7 +91,7 @@
       <button mat-raised-button class="buttons" color="warn" (click)="removeSale(i)" *ngIf="i != 0">Eliminar
         artículo</button>
       <button mat-raised-button class="buttons" (click)="openAskModal()">Agregar artículo</button>
-      <button mat-raised-button class="buttons" (click)="saveOrder(template)" color="primary">Guardar</button>
+      <button mat-raised-button class="buttons" (click)="saveOrder()" color="primary">Guardar</button>
     </div>
 
 
@@ -142,7 +142,7 @@
       <button mat-raised-button class="buttons" color="warn" (click)="removeSale(i)" *ngIf="i != 0">Eliminar
         artículo</button>
       <button mat-raised-button class="buttons" (click)="openAskModal()">Agregar artículo</button>
-      <button mat-raised-button class="buttons" (click)="saveOrder(template)" color="primary">Guardar</button>
+      <button mat-raised-button class="buttons" (click)="saveOrder()" color="primary">Guardar</button>
     </div>
 
 
@@ -165,8 +165,8 @@
         <h2 class="title-error" *ngIf="saleDifference > 0">Por pagar: {{saleDifference | currency: 'USD'}} </h2>
       </div>
       <div class="modal-footer">
-        <button mat-raised-button class="buttons" color="warn" (click)="closeModal(template)">Cancelar</button>
-        <button mat-raised-button class="buttons" (click)="endOrder(template)" color="primary" *ngIf="saleItem.amountPayed > 1">Finalizar Venta</button>
+        <button mat-raised-button class="buttons" color="warn" (click)="closeModal()">Cancelar</button>
+        <button mat-raised-button class="buttons" (click)="endOrder()" color="primary" *ngIf="saleItem.amountPayed > 1">Finalizar Venta</button>
       </div>
     </div>
   </div>
