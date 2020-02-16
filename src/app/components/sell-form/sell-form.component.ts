@@ -154,7 +154,7 @@ export class SellFormComponent implements OnInit {
     }
   }
 
-  saveOrder(template) {
+  saveOrder() {
     let size = this.validateFormFields()
     if (size === this.formObject.length && this.validateMainData()) {
       this.saleItem.totalSalePrice = this.calculateTotals();
@@ -186,7 +186,7 @@ export class SellFormComponent implements OnInit {
     this.modalRef = this.modalService.show(template);
   }
 
-  closeModal(template: TemplateRef<any>) {
+  closeModal() {
     this.modalRef.hide();
   }
 
