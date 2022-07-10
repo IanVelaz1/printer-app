@@ -20,9 +20,6 @@ export class MainInterceptor implements HttpInterceptor {
            if (!request.url.includes('/api/client')) {
             this.modalService.launchModalService(true);
            }
-      
-
-        debugger
 
         return next.handle(request).pipe(
             map((event => {
@@ -32,7 +29,7 @@ export class MainInterceptor implements HttpInterceptor {
                     
                     debugger
                     notificationObj['type'] = 'success';
-                    notificationObj['message'] = 'Solicitus procesada correctamente';
+                    notificationObj['message'] = 'Solicitud procesada correctamente';
                     this.modalService.launchAlertService(notificationObj);
 
                 }

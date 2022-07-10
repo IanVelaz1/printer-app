@@ -35,6 +35,8 @@ export class NotesService {
     return this.http.put(`${environment.SERVICIOS_GUARDAR_VENTA}/${id}`,note,{headers:this.headers});
   }
 
-
+  getReports() {
+    return this.http.get(`${environment.SERVICIOS_REPORTES}`);
+  }
 
 }

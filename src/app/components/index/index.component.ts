@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import * as pluginDataLabels from 'chart.js';
 import { Label } from 'ng2-charts';
+import { NotesService } from 'src/app/services/notes/notes.service';
 
 @Component({
   selector: 'app-index',
@@ -28,14 +29,25 @@ export class IndexComponent implements OnInit {
   public barChartLegend = true;
   public barChartPlugins = [pluginDataLabels];
 
-  public barChartData: ChartDataSets[] = [
-    { data: [1000,2000,800,600,1500,1700,500], label: 'Ventas' }
+  public barChartData: any[] = [
+    { data: [0,0,0,0,0,0,0], label: 'Ventas' }
   ];
 
 
-  constructor() { }
+  constructor(
+    private notesService: NotesService
+  ) { }
 
   ngOnInit() {
+    this.queryReports();
+  }
+
+  queryReports() {
+    return this.notesService.getReports().subscribe({
+      next: (response => {
+        this.barChartData[0].data = response;
+      })
+    })
   }
 
 }

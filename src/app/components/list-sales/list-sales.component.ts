@@ -14,6 +14,7 @@ export class ListSalesComponent implements OnInit {
   constructor(private notesService:NotesService) { }
 
   ngOnInit() {
+    this.searchForSale();
   }
 
   queryObj = {
@@ -42,7 +43,6 @@ export class ListSalesComponent implements OnInit {
       let sentDate = `${formatDate[2]}-${formatDate[1]}-${formatDate[0]}`
       dateString = `date=${sentDate}`
       queryString = queryString.concat(dateString);
-      debugger
       queryString = queryString.concat('&');
     }
 

@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
       this.loginErrors = false;
       this.loginService.login(this.loginObject).subscribe(response => {
         if (response['ok'] === true) {
+          localStorage.removeItem('authData');
           localStorage.setItem('authData', JSON.stringify(response['userResponse']));
           this.router.navigateByUrl('/');
         }

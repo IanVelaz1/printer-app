@@ -13,7 +13,7 @@
 
     <mat-form-field class="w100">
       <mat-label>Cliente *</mat-label>
-      <input matInput placeholder="Nombre cliente" name="client" [(ngModel)]="saleItem.client" (keyup)="searchClient()" (blur)="clearClientList()">
+      <input matInput placeholder="Nombre cliente" name="client" [(ngModel)]="saleItem.client" (keyup)="searchClient()">
     </mat-form-field>
 
     <div class="clientsResults">

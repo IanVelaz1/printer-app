@@ -1,5 +1,7 @@
 .bodyContainer{
     margin: 0px 100px;
+    overflow-y: auto;
+    height: calc(100vh - 200px);
 }
 
 @media (max-width: 500px) {
