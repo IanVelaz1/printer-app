@@ -9,7 +9,7 @@ import {ModalService} from '../../services/modals/modal.service';
 })
 export class ModalLoadingComponent implements OnInit {
 
-  @ViewChild('modalLoading',{static: false }) autoShownModal: ModalDirective;
+  @ViewChild('modalLoading') autoShownModal: ModalDirective;
 
 
   constructor(private modalService: ModalService) { }

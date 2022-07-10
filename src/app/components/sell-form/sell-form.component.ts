@@ -14,8 +14,8 @@ export class SellFormComponent implements OnInit {
 
   modalRef: BsModalRef;
 
-  @ViewChild('modal', { static: false }) autoShownModal: ModalDirective;
-  @ViewChild('modalSale', { static: false }) modalSale: ModalDirective;
+  @ViewChild('modal') autoShownModal: ModalDirective;
+  @ViewChild('modalSale') modalSale: ModalDirective;
 
 
   saleItem: any = {

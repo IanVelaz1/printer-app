@@ -9,8 +9,8 @@ import { ModalDirective } from 'ngx-bootstrap/modal/public_api';
 })
 export class ListSalesComponent implements OnInit {
 
-  @ViewChild('modal', { static: false }) autoShownModal: ModalDirective;
-  @ViewChild('modalPayment', { static: false }) modalPayment: ModalDirective;
+  @ViewChild('modal') autoShownModal: ModalDirective;
+  @ViewChild('modalPayment') modalPayment: ModalDirective;
   constructor(private notesService:NotesService) { }
 
   ngOnInit() {
