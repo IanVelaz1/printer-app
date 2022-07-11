@@ -1,14 +1,14 @@
-@import '~@angular/material/theming';
+@use '~@angular/material' as mat;
 
-@include mat-core();
+@include mat.core();
 
-$printer-app-primary: mat-palette($mat-cyan);
+$printer-app-primary: mat.define-palette(mat.$cyan-palette);
 
-$printer-app-accent: mat-palette($mat-cyan, 400);
-$printer-app-warn:    mat-palette($mat-red);
+$printer-app-accent: mat.define-palette(mat.$cyan-palette, 400);
+$printer-app-warn:    mat.define-palette(mat.$red-palette);
 
-$printer-app-theme: mat-light-theme($printer-app-primary,$printer-app-accent, $printer-app-warn);
+$printer-app-theme: mat.define-light-theme($printer-app-primary,$printer-app-accent, $printer-app-warn);
 
 
 
-@include angular-material-theme($printer-app-theme);
+@include mat.all-component-themes($printer-app-theme);
