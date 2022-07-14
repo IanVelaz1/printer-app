@@ -3,6 +3,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal/';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ModalService } from '../../services/modals/modal.service';
 import { NotesService } from '../../services/notes/notes.service';
+import { NoteGenerationService } from 'src/app/services/noteGeneration/note-generation.service';
 
 
 @Component({
@@ -22,7 +23,7 @@ export class SellFormComponent implements OnInit {
     client: '',
     items: [],
     totalSalePrice: 0,
-    noteDate: undefined,
+    noteDate: new Date(),
     formError: false,
     amountPayed: 0,
     status: ''
@@ -34,8 +35,12 @@ export class SellFormComponent implements OnInit {
 
   saleDifference: number;
 
-  constructor(private modalService: BsModalService,
-    private modalLoadingService: ModalService, private notesService: NotesService) { }
+  constructor(
+    private modalService: BsModalService,
+    private modalLoadingService: ModalService, 
+    private notesService: NotesService,
+    private noteGenerationService: NoteGenerationService
+    ) { }
 
   ngOnInit() {
   }
@@ -61,6 +66,7 @@ export class SellFormComponent implements OnInit {
       totalItemPrice: 0,
       formError: false,
       isPrintingItem: true,
+      deliveryDate: undefined,
       adjustment:0
     });
     this.autoShownModal.hide();
@@ -79,6 +85,7 @@ export class SellFormComponent implements OnInit {
       totalItemPrice: 0,
       formError: false,
       isPrintingItem: false,
+      deliveryDate: undefined,
       adjustment: 0
     });
     this.autoShownModal.hide();
@@ -169,17 +176,27 @@ export class SellFormComponent implements OnInit {
     let notificationObj = {};
     this.modalLoadingService.launchModalService(true);
     this.modalSale.hide();
-    if(this.saleItem.amountPayed < this.saleItem.totalSalePrice){
-      this.saleItem.status = 'Por pagar'
-    }else{
-      this.saleItem.status = 'Pagado'
-    }
-
+ 
     this.notesService.saveNote(this.saleItem).subscribe(response => {
-      location.reload();
+      this.getSpecificOrder(response['success']['_id']);
+      //
     }, (error => {
       
     }));
+  }
+
+  getSpecificOrder(id: string) {
+    this.notesService.getNoteById(id).subscribe({
+      next: (response => {
+        debugger
+        if(response['success']) {
+          this.noteGenerationService.generateAndPrintPdf(response['success']);
+        }
+        setTimeout(() => {
+          location.reload();
+        }, 2000);
+      })
+    })
   }
 
   openModal(template: TemplateRef<any>) {

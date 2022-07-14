@@ -5,15 +5,14 @@
       </h2>
 </div>
 <div>
-    <div>
-      <div style="display: block">
+    <div style="height: 20vh;">
+      <div style="display: block; height: 50vh;">
         <canvas baseChart
-          [datasets]="barChartData"
-          [labels]="barChartLabels"
+          [data]="barChartData"
           [options]="barChartOptions"
           [plugins]="barChartPlugins"
           [legend]="barChartLegend"
-          [chartType]="barChartType">
+          [type]="barChartType">
         </canvas>
       </div>
      

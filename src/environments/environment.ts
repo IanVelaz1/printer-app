@@ -13,7 +13,7 @@ export const environment = {
   SERVICIOS_BUSCAR_CLIENTE: GLOBAL.RUTA_GLOBAL + '/api/client',
   SERVICIOS_BUSCA_VENTA:GLOBAL.RUTA_GLOBAL + '/api/note/search',
   SERVICIOS_REPORTES:GLOBAL.RUTA_GLOBAL + '/api/reports',
-  PAYMENTS_SERVICES: GLOBAL.RUTA_GLOBAL = '/api/payment'
+  PAYMENTS_SERVICES: GLOBAL.RUTA_GLOBAL + '/api/payment'
 };
 
 

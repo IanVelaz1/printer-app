@@ -22,7 +22,6 @@ export class ModalLoadingComponent implements OnInit {
       }else{
         this.autoShownModal.hide();
       }
-      debugger
     });
 
   }

@@ -101,135 +101,186 @@
         </div>
 
 
-        <div class="itemsContainer">
-          <div class="itemSale" *ngFor="let saleItem of selectedSale.items">
-            <div class="itemSaleBox" *ngIf="saleItem.isPrintingItem == true">
+        
 
-              <div class="col12">
-                <mat-form-field class="w100">
-                  <mat-label>Nombre de archivo </mat-label>
-                  <input matInput disabled placeholder="Nombre de archivo" name="fileName" [(ngModel)]="saleItem.fileName">
-                </mat-form-field>
-              </div>
+        <mat-accordion>
+          <mat-expansion-panel hideToggle>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Productos comprados
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="itemsContainer">
+              <div class="itemSale" *ngFor="let saleItem of selectedSale.items">
+                <div class="itemSaleBox" *ngIf="saleItem.isPrintingItem == true">
+                  <div class="col12">
+                    <mat-form-field class="w100">
+                      <mat-label>Fecha de entrega</mat-label>
+                      <input matInput disabled placeholder="Decha de entrega" name="deliveryDate" [value]="saleItem.deliveryDate | date: 'dd/MM/yyyy'">
+                    </mat-form-field>
+                  </div>
+                  <div class="col12">
+                    <mat-form-field class="w100">
+                      <mat-label>Nombre de archivo </mat-label>
+                      <input matInput disabled placeholder="Nombre de archivo" name="fileName" [(ngModel)]="saleItem.fileName">
+                    </mat-form-field>
+                  </div>
+    
+                  <div class="col4">
+    
+                    <mat-form-field class="fieldContainer">
+                      <mat-label>Piezas</mat-label>
+                      <input matInput placeholder="Cantidad" name="quantity"
+                        [(ngModel)]="saleItem.quantity" disabled>
+                    </mat-form-field>
+                    <mat-form-field class="fieldContainer">
+                      <mat-label>Largo <sup>M2</sup></mat-label>
+                      <input matInput type="number" placeholder="Largo" name="length"
+                        [(ngModel)]="saleItem.length" disabled>
+                    </mat-form-field>
+                    <mat-form-field class="fieldContainer">
+                      <mat-label>Ancho <sup>M2</sup></mat-label>
+                      <input matInput type="number" placeholder="Ancho" name="height"
+                        [(ngModel)]="saleItem.height" disabled>
+                    </mat-form-field>
+                    <mat-form-field class="fieldContainer">
+                      <mat-label>Total M<sup>2</sup> </mat-label>
+                      <input matInput placeholder="total M2" name="totalMeterSquares" disabled
+                        [(ngModel)]="saleItem.totalMeterSquares" disabled>
+                    </mat-form-field>
+                  </div>
+                  <div class="col2">
+                    <mat-form-field class="fieldContainer">
+                      <mat-label>Precio unitario </mat-label>
+                      <input matInput disabled placeholder="precio unitario" name="unitPrice" [(ngModel)]="saleItem.unitPrice">
+                    </mat-form-field>
+                    <mat-form-field class="fieldContainer">
+                      <mat-label>Precio por pieza </mat-label>
+                      <input matInput placeholder="precio por pieza" disabled name="unitTotalPrice"
+                        [(ngModel)]="saleItem.unitTotalPrice" disabled>
+                    </mat-form-field>
+                    <mat-form-field class="fieldContainer">
+                      <mat-label>Ajuste </mat-label>
+                      <input matInput placeholder="Ajuste" disabled name="adjustment"
+                        [(ngModel)]="saleItem.adjustment" disabled>
+                    </mat-form-field>
+                    <mat-form-field class="fieldContainer">
+                      <mat-label>Estatus</mat-label>
+                        <input matInput placeholder="Estatus" disabled name="status"
+                          [(ngModel)]="selectedSale.status" disabled>
+                      </mat-form-field>
+                  </div>
+                  <div class="col12">
+                    <mat-form-field class=" w100">
+                      <mat-label>Observaciones</mat-label>
+                      <textarea matInput placeholder="Observaciones" name="observations"
+                        [(ngModel)]="saleItem.observations" disabled></textarea>
+                    </mat-form-field>
+                  </div>
+                  <div class="buttonContainer">
+                    <h3 class="title"> TOTAL : {{saleItem.totalItemPrice | currency: 'USD'}}</h3>
+                  </div>
+                </div>
+    
+                <div class="itemSaleBox" *ngIf="saleItem.isPrintingItem == false">
+                  <div class="col12">
+                    <mat-form-field class="w100">
+                      <mat-label>Fecha de entrega</mat-label>
+                      <input matInput disabled placeholder="Decha de entrega" name="deliveryDate" [value]="saleItem.deliveryDate | date: 'dd/MM/yyyy'">
+                    </mat-form-field>
+                  </div>
 
-              <div class="col4">
-
-                <mat-form-field class="fieldContainer">
-                  <mat-label>Piezas</mat-label>
-                  <input matInput placeholder="Cantidad" name="quantity"
-                    [(ngModel)]="saleItem.quantity" disabled>
-                </mat-form-field>
-                <mat-form-field class="fieldContainer">
-                  <mat-label>Largo <sup>M2</sup></mat-label>
-                  <input matInput type="number" placeholder="Largo" name="length"
-                    [(ngModel)]="saleItem.length" disabled>
-                </mat-form-field>
-                <mat-form-field class="fieldContainer">
-                  <mat-label>Ancho <sup>M2</sup></mat-label>
-                  <input matInput type="number" placeholder="Ancho" name="height"
-                    [(ngModel)]="saleItem.height" disabled>
-                </mat-form-field>
-                <mat-form-field class="fieldContainer">
-                  <mat-label>Total M<sup>2</sup> </mat-label>
-                  <input matInput placeholder="total M2" name="totalMeterSquares" disabled
-                    [(ngModel)]="saleItem.totalMeterSquares" disabled>
-                </mat-form-field>
-              </div>
-              <div class="col2">
-                <mat-form-field class="fieldContainer">
-                  <mat-label>Precio unitario </mat-label>
-                  <input matInput disabled placeholder="precio unitario" name="unitPrice" [(ngModel)]="saleItem.unitPrice">
-                </mat-form-field>
-                <mat-form-field class="fieldContainer">
-                  <mat-label>Precio por pieza </mat-label>
-                  <input matInput placeholder="precio por pieza" disabled name="unitTotalPrice"
-                    [(ngModel)]="saleItem.unitTotalPrice" disabled>
-                </mat-form-field>
-                <mat-form-field class="fieldContainer">
-                  <mat-label>Ajuste </mat-label>
-                  <input matInput placeholder="Ajuste" disabled name="adjustment"
-                    [(ngModel)]="saleItem.adjustment" disabled>
-                </mat-form-field>
-                <mat-form-field class="fieldContainer">
-                  <mat-label>Estatus</mat-label>
-                    <input matInput placeholder="Estatus" disabled name="status"
-                      [(ngModel)]="selectedSale.status" disabled>
-                  </mat-form-field>
-              </div>
-              <div class="col12">
-                <mat-form-field class=" w100">
-                  <mat-label>Observaciones</mat-label>
-                  <textarea matInput placeholder="Observaciones" name="observations"
-                    [(ngModel)]="saleItem.observations" disabled></textarea>
-                </mat-form-field>
-              </div>
-              <div class="buttonContainer">
-                <h3 class="title"> TOTAL : {{saleItem.totalItemPrice | currency: 'USD'}}</h3>
+                  <div class="col12">
+                    <mat-form-field class="w100">
+                      <mat-label>Nombre del artículo *</mat-label>
+                      <input matInput disabled placeholder="Nombre de archivo" name="fileName" [(ngModel)]="saleItem.fileName">
+                    </mat-form-field>
+                  </div>
+    
+                  <div class="col2">
+                    <mat-form-field class="fieldContainer">
+                      <mat-label>Piezas *</mat-label>
+                      <input matInput disabled placeholder="Cantidad" name="quantity"
+                        [(ngModel)]="saleItem.quantity">
+                    </mat-form-field>
+                    <mat-form-field class="fieldContainer">
+                      <mat-label>Piezas *</mat-label>
+                      <input matInput disabled placeholder="Cantidad" name="quantity"
+                        [(ngModel)]="saleItem.quantity">
+                    </mat-form-field>
+                    <mat-form-field class="fieldContainer">
+                      <mat-label>Precio *</mat-label>
+                      <input matInput type="number" disabled placeholder="Precio" name="unitPrice"
+                         [(ngModel)]="saleItem.unitPrice">
+                    </mat-form-field>
+                    <mat-form-field class="fieldContainer">
+                      <mat-label>Ajuste </mat-label>
+                      <input matInput placeholder="Ajuste" disabled name="adjustment"
+                        [(ngModel)]="saleItem.adjustment" disabled>
+                    </mat-form-field>
+                    <mat-form-field class="fieldContainer">
+                    <mat-label>Estatus</mat-label>
+                      <input matInput placeholder="Estatus" disabled name="status"
+                        [(ngModel)]="selectedSale.status" disabled>
+                    </mat-form-field>
+                  </div>
+    
+                  <div class="col12">
+                    <mat-form-field class=" w100">
+                      <mat-label>Observaciones</mat-label>
+                      <textarea disabled matInput placeholder="Observaciones" name="observations"
+                        [(ngModel)]="saleItem.observations"></textarea>
+                    </mat-form-field>
+                  </div>
+                  <div class="buttonContainer">
+                    <h3 class="title"> TOTAL : {{saleItem.totalItemPrice | currency: 'USD'}}</h3>
+                  </div>
+                </div>
+    
+    
+    
               </div>
             </div>
-
-            <div class="itemSaleBox" *ngIf="saleItem.isPrintingItem == false">
-
-              <div class="col12">
-                <mat-form-field class="w100">
-                  <mat-label>Nombre del artículo *</mat-label>
-                  <input matInput disabled placeholder="Nombre de archivo" name="fileName" [(ngModel)]="saleItem.fileName">
-                </mat-form-field>
+          </mat-expansion-panel>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Pagos
+              </mat-panel-title>
+              <mat-panel-description>
+               {{selectedSale.status}}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+           <div class="card-container">
+            <div class="card-payment" *ngFor="let payment of foundPayments">
+              <p class="date"> {{payment?.date | date: 'dd/MM/yyyy'}} </p>
+              <p class="amount"> {{payment?.amount | currency}} </p>
+              <div class="buttons">
+                <button mat-raised-button color="warn" (click)="deletePayment(payment._id)">Borrar</button>
               </div>
-
-              <div class="col2">
-
-                <mat-form-field class="fieldContainer">
-                  <mat-label>Piezas *</mat-label>
-                  <input matInput disabled placeholder="Cantidad" name="quantity"
-                    [(ngModel)]="saleItem.quantity">
-                </mat-form-field>
-                <mat-form-field class="fieldContainer">
-                  <mat-label>Precio *</mat-label>
-                  <input matInput type="number" disabled placeholder="Precio" name="unitPrice"
-                     [(ngModel)]="saleItem.unitPrice">
-                </mat-form-field>
-                <mat-form-field class="fieldContainer">
-                  <mat-label>Ajuste </mat-label>
-                  <input matInput placeholder="Ajuste" disabled name="adjustment"
-                    [(ngModel)]="saleItem.adjustment" disabled>
-                </mat-form-field>
-                <mat-form-field class="fieldContainer">
-                <mat-label>Estatus</mat-label>
-                  <input matInput placeholder="Estatus" disabled name="status"
-                    [(ngModel)]="selectedSale.status" disabled>
-                </mat-form-field>
-              </div>
-
-              <div class="col12">
-                <mat-form-field class=" w100">
-                  <mat-label>Observaciones</mat-label>
-                  <textarea disabled matInput placeholder="Observaciones" name="observations"
-                    [(ngModel)]="saleItem.observations"></textarea>
-                </mat-form-field>
-              </div>
-              <div class="buttonContainer">
-                <h3 class="title"> TOTAL : {{saleItem.totalItemPrice | currency: 'USD'}}</h3>
-              </div>
-
-
-
             </div>
-
-
-
-          </div>
+           </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <br>
+        <br>
+        <div class="buttonContainer">
+          <h3 class="title" style="color: rgb(5, 110, 5)"> PAGADO : {{selectedSale.amountPayed| currency: 'USD'}}</h3>
         </div>
-
-
-
+        <div class="buttonContainer">
+          <h3 class="title" style="color: rgb(160, 0, 0);"> POR PAGAR : {{selectedSale.totalSalePrice - selectedSale.amountPayed| currency: 'USD'}}</h3>
+        </div>
+        <div class="buttonContainer">
+          <h3 class="title"> TOTAL : {{selectedSale.totalSalePrice | currency: 'USD'}}</h3>
+        </div>
       </div>
 
       <div class="modal-footer">
           <div class="buttonsContainer">
             <button mat-raised-button class="buttons" color="warn" (click)="closeModal()">Cerrar</button>
             <button mat-raised-button class="buttons" color="primary" *ngIf="selectedSale.status == 'Por pagar'" (click)="openModalPayment()">Abonar pago</button>
-            <button mat-raised-button class="buttons" color="primary">Imprimir</button>
+            <button mat-raised-button class="buttons" color="primary" (click)="printSale()">Imprimir Recibo</button>
+            <button mat-raised-button class="buttons" color="primary" (click)="printProductionOrder()">Imprimir Orden Produccion</button>
           </div>
       </div>
     </div>

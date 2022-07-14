@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChartConfiguration, ChartData, ChartEvent, ChartType } from 'chart.js';
 import * as pluginDataLabels from 'chart.js';
-import { Label } from 'ng2-charts';
 import { NotesService } from 'src/app/services/notes/notes.service';
+import { BaseChartDirective } from 'ng2-charts';
 
 @Component({
   selector: 'app-index',
@@ -11,27 +11,34 @@ import { NotesService } from 'src/app/services/notes/notes.service';
 })
 export class IndexComponent implements OnInit {
 
-  public barChartOptions: ChartOptions = {
+  @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
+
+  public barChartOptions: ChartConfiguration['options'] = {
     responsive: true,
     // We use these empty structures as placeholders for dynamic theming.
-    scales: { xAxes: [{}], yAxes: [{}] },
-    plugins: {
-      datalabels: {
-        anchor: 'end',
-        align: 'end',
+    scales: {
+      x: {},
+      y: {
+        min: 0
       }
+    },
+    plugins: {
+      legend: {
+        display: true,
+      },
     }
   };
 
-
-  public barChartLabels: Label[] = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
   public barChartPlugins = [pluginDataLabels];
 
-  public barChartData: any[] = [
-    { data: [0,0,0,0,0,0,0], label: 'Ventas' }
-  ];
+  public barChartData: ChartData<'bar'> = {
+    labels: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
+    datasets: [
+      { data: [ 0, 0, 0, 0, 0, 0, 0] }
+    ]
+  };
 
 
   constructor(
@@ -44,10 +51,18 @@ export class IndexComponent implements OnInit {
 
   queryReports() {
     return this.notesService.getReports().subscribe({
-      next: (response => {
-        this.barChartData[0].data = response;
+      next: ((response: any) => {
+        this.barChartData.datasets = [
+          {
+            data : response,
+            label: 'Ventas pagadas'
+          }
+        ];
+        this.chart?.update();
       })
     })
+
+    
   }
 
 }

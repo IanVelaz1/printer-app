@@ -1,6 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {NotesService} from '../../services/notes/notes.service';
 import { ModalDirective } from 'ngx-bootstrap/modal/public_api';
+import { PaymentsService } from 'src/app/services/payments/payments.service';
+import { Payment } from 'src/app/interfaces/payment';
+import { NoteGenerationService } from 'src/app/services/noteGeneration/note-generation.service';
 
 @Component({
   selector: 'app-list-sales',
@@ -11,7 +14,14 @@ export class ListSalesComponent implements OnInit {
 
   @ViewChild('modal') autoShownModal: ModalDirective;
   @ViewChild('modalPayment') modalPayment: ModalDirective;
-  constructor(private notesService:NotesService) { }
+
+  foundPayments: any[] = [];
+
+  constructor(
+    private notesService:NotesService,
+    private paymentsService: PaymentsService,
+    private noteGenerationService: NoteGenerationService
+    ) { }
 
   ngOnInit() {
     this.searchForSale();
@@ -73,7 +83,23 @@ export class ListSalesComponent implements OnInit {
   openSale(sale){
     this.selectedSale = sale;
     this.openModal();
-    debugger
+    this.findPayments();
+  }
+
+  findPayments() {
+    this.paymentsService.getPaymentsByNote(this.selectedSale._id).subscribe({
+      next: ((response: any[]) => {
+        this.foundPayments = response;
+      })
+    })
+  }
+
+  deletePayment(id: string) {
+   this.paymentsService.deletePayment(id).subscribe({
+    next: (response => {
+      this.getSpecificNote();
+    })
+   });
   }
 
   openModalPayment(){
@@ -87,19 +113,42 @@ export class ListSalesComponent implements OnInit {
 
   addPayment(){
    console.log(this.selectedSale);
-   this.selectedSale.amountPayed += this.paymentAmount
-   if(this.selectedSale.amountPayed === this.selectedSale.totalSalePrice){
-    this.selectedSale.status = 'Pagado';
-  }
-   debugger
-   this.notesService.editNote(this.selectedSale,this.selectedSale._id).subscribe(response=>{
-    debugger  
-    if(response['ok'] == true){
-        
-        this.closeModalPayment();
+    const payload: Payment = {
+      amount: Number(this.paymentAmount),
+      note: this.selectedSale._id
+    }
+    this.paymentsService.createPayment(payload).subscribe({
+      next: (response) => {
+        this.getSpecificNote();
       }
-   });
-   debugger
+    })
+  }
+
+  getSpecificNote() {
+    this.notesService.getNoteById(this.selectedSale._id).subscribe({
+      next: (response => {
+        if(response['ok'] == true) {
+          this.selectedSale = response['success'];
+          this.searchForSale();
+          this.findPayments();
+          this.modalPayment.hide();
+          this.calculateRemainingPayment();
+          this.resetData();
+        }
+      })
+    });
+  }
+
+  resetData() {
+    this.paymentAmount = null;
+  }
+
+  printSale() {
+    this.noteGenerationService.generateAndPrintPdf(this.selectedSale);
+  }
+
+  printProductionOrder() {
+    this.noteGenerationService.generateOrderService(this.selectedSale);
   }
 
   openModal(){

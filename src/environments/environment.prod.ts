@@ -9,5 +9,5 @@ export const environment = {
   SERVICIOS_GUARDAR_VENTA: GLOBAL.RUTA_GLOBAL + '/api/note',
   SERVICIOS_BUSCAR_CLIENTE: GLOBAL.RUTA_GLOBAL + '/api/client',
   SERVICIOS_BUSCA_VENTA:GLOBAL.RUTA_GLOBAL + '/api/note/search',
-  PAYMENTS_SERVICES: GLOBAL.RUTA_GLOBAL = '/api/payment'
+  PAYMENTS_SERVICES: GLOBAL.RUTA_GLOBAL + '/api/payment'
 };

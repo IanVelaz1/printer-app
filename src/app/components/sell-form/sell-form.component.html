@@ -28,6 +28,14 @@
 <div class="formContainer" *ngFor="let saleItem of formObject; let i = index"
   [ngClass]="{'errorFields': saleItem.formError}">
   <div *ngIf="saleItem.isPrintingItem == true">
+    <div class="col12">
+      <mat-form-field class="w100">
+        <mat-label>Fecha de entrega</mat-label>
+        <input matInput (select)="selectedDate($event)" [matDatepicker]="picker" disabled [(ngModel)]="saleItem.deliveryDate">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker (select)="selectedDate($event)" #picker disabled="false"></mat-datepicker>
+      </mat-form-field>
+    </div>
 
     <div class="col12">
       <mat-form-field class="w100">
@@ -35,9 +43,7 @@
         <input matInput placeholder="Nombre de archivo" name="fileName" [(ngModel)]="saleItem.fileName">
       </mat-form-field>
     </div>
-
     <div class="col4">
-
       <mat-form-field class="fieldContainer">
         <mat-label>Piezas *</mat-label>
         <input matInput placeholder="Cantidad" name="quantity" (keyup)="calculateTotalItemPrice(i)"
@@ -100,6 +106,15 @@
 
 
   <div *ngIf="saleItem.isPrintingItem == false">
+
+    <div class="col12">
+      <mat-form-field class="w100">
+        <mat-label>Fecha de entrega</mat-label>
+        <input matInput (select)="selectedDate($event)" [matDatepicker]="picker" disabled [(ngModel)]="saleItem.deliveryDate">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker (select)="selectedDate($event)" #picker disabled="false"></mat-datepicker>
+      </mat-form-field>
+    </div>
 
     <div class="col12">
       <mat-form-field class="w100">
@@ -185,7 +200,7 @@
       </div>
       <div class="modal-body">
         <div class="col2">
-          <button mat-raised-button class="buttons" (click)="addPrintingProduct()" color="primary">Impresión</button>
+          <button mat-raised-button class="buttons" (click)="addPrintingProduct()" color="primary">Lona</button>
           <button mat-raised-button class="buttons" (click)="addPromotionalProduct()"
             color="primary">Promocionales</button>
         </div>

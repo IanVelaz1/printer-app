@@ -11,10 +11,12 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { ChartsModule } from 'ng2-charts';
+import { NgChartsModule } from 'ng2-charts';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import {MatExpansionModule} from '@angular/material/expansion';
 import { MainInterceptor } from './services/interceptor';
+import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { MainInterceptor } from './services/interceptor';
     MatDatepickerModule,
     MatNativeDateModule,
     MatButtonModule,
-    ChartsModule,
+    NgChartsModule,
+    MatExpansionModule,
+    MatCardModule,
     AlertModule.forRoot(),
     ModalModule.forRoot()
   ],

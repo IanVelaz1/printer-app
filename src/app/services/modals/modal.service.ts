@@ -18,7 +18,6 @@ export class ModalService {
 
 
   launchAlertService(alertObj){
-    debugger
      this.launchModalAlert.emit(alertObj);
   }
 

@@ -147,3 +147,23 @@ p {
     box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
     border-radius: 5px;
 }
+
+.card-container {
+    display: flex;
+    flex-flow: column;
+}
+
+.card-payment {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    border-radius: 8px;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    margin: 0.50rem 0;
+    padding: 0.42rem;
+    align-items: center;
+}
+
+.card-payment > p {
+    margin: 0;
+}
