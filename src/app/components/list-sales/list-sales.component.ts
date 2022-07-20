@@ -4,6 +4,7 @@ import { ModalDirective } from 'ngx-bootstrap/modal/public_api';
 import { PaymentsService } from 'src/app/services/payments/payments.service';
 import { Payment } from 'src/app/interfaces/payment';
 import { NoteGenerationService } from 'src/app/services/noteGeneration/note-generation.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-sales',
@@ -20,7 +21,8 @@ export class ListSalesComponent implements OnInit {
   constructor(
     private notesService:NotesService,
     private paymentsService: PaymentsService,
-    private noteGenerationService: NoteGenerationService
+    private noteGenerationService: NoteGenerationService,
+    private router: Router
     ) { }
 
   ngOnInit() {
@@ -137,6 +139,10 @@ export class ListSalesComponent implements OnInit {
         }
       })
     });
+  }
+
+  editSale() {
+    this.router.navigateByUrl(`/sales/${this.selectedSale._id}`);
   }
 
   resetData() {

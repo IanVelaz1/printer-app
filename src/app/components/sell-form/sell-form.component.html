@@ -1,6 +1,9 @@
 <div class="formContainer" [ngClass]="{'errorFields': saleItem.formError}">
-  <h2 class="title">
+  <h2 class="title" *ngIf="!this.sellId">
     Venta nueva
+  </h2>
+  <h2 class="title" *ngIf="this.sellId">
+    Editar Venta
   </h2>
   <div class="col12">
 
@@ -13,7 +16,7 @@
 
     <mat-form-field class="w100">
       <mat-label>Cliente *</mat-label>
-      <input matInput placeholder="Nombre cliente" name="client" [(ngModel)]="saleItem.client" (keyup)="searchClient()">
+      <input matInput placeholder="Nombre cliente" name="client" [disabled]="this.sellId" [(ngModel)]="saleItem.client.name" (keyup)="searchClient()">
     </mat-form-field>
 
     <div class="clientsResults">
@@ -97,7 +100,9 @@
       <button mat-raised-button class="buttons" color="warn" (click)="removeSale(i)" *ngIf="i != 0">Eliminar
         artículo</button>
       <button mat-raised-button class="buttons" (click)="openAskModal()">Agregar artículo</button>
-      <button mat-raised-button class="buttons" (click)="saveOrder()" color="primary">Guardar</button>
+      <button mat-raised-button class="buttons" (click)="saveOrder()" color="primary" *ngIf="!this.sellId">Guardar</button>
+      <button mat-raised-button class="buttons" (click)="editOrder()" color="primary" *ngIf="this.sellId">Guardar cambios</button>
+
     </div>
 
 
@@ -157,7 +162,8 @@
       <button mat-raised-button class="buttons" color="warn" (click)="removeSale(i)" *ngIf="i != 0">Eliminar
         artículo</button>
       <button mat-raised-button class="buttons" (click)="openAskModal()">Agregar artículo</button>
-      <button mat-raised-button class="buttons" (click)="saveOrder()" color="primary">Guardar</button>
+      <button mat-raised-button class="buttons" (click)="saveOrder()" color="primary" *ngIf="!this.sellId">Guardar</button>
+      <button mat-raised-button class="buttons" (click)="editOrder()" color="primary" *ngIf="this.sellId">Guardar cambios</button>
     </div>
 
 

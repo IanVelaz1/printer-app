@@ -1,0 +1,49 @@
+<div class="main-container">
+  <div class="filters-container">
+    <h3 style="text-align: center">Filtros de clientes</h3>
+    <form class="form-filters" [formGroup]="mainForm" (ngSubmit)="search()">
+      <mat-form-field class="full-width" appearance="fill">
+        <mat-label>Nombre</mat-label>
+        <input matInput formControlName="name" />
+      </mat-form-field>
+      <mat-form-field class="full-width" appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" />
+      </mat-form-field>
+    </form>
+    <div class="buttons-container">
+      <button mat-raised-button color="primary" (click)="search()">Aplicar</button>
+    </div>
+  </div>
+  <div class="table-container">
+    <table mat-table [dataSource]="foundClients" class="mat-elevation-z8">
+
+      <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+    
+      <!-- Position Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Nombre </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+    
+      <!-- Name Column -->
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef> Email </th>
+        <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+      </ng-container>
+    
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"  (click)="navigateToClient(row)"></tr>
+    </table>
+    <br>
+    <mat-paginator
+      [length]="foundClients?.length"
+      [pageSize]="limit"
+      [pageSizeOptions]="sizeOptions"
+      (page)="changedPaginator($event)"
+      aria-label="Select page"
+    >
+    </mat-paginator>
+  </div>
+</div>

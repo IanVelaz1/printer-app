@@ -1,0 +1,126 @@
+<div class="main-container">
+  <br />
+  <h2 class="title" *ngIf="!isEdit">Crear Cliente</h2>
+  <h2 class="title" *ngIf="isEdit">Editar Cliente</h2>
+  <div class="form-container">
+    <form [formGroup]="mainForm" class="form" autocomplete="off">
+      <div class="form-row">
+        <mat-form-field class="full-width" appearance="fill">
+          <mat-label>Nombre</mat-label>
+          <input matInput formControlName="name" />
+        </mat-form-field>
+        <mat-form-field class="full-width" appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" />
+        </mat-form-field>
+      </div>
+      <h3>Direccion</h3>
+      <div formGroupName="address">
+        <div class="form-row">
+          <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Direccion completa</mat-label>
+            <input matInput formControlName="address" />
+          </mat-form-field>
+          <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Telefono</mat-label>
+            <input matInput formControlName="phone" />
+          </mat-form-field>
+        </div>
+
+        <mat-accordion>
+          <mat-expansion-panel
+            (opened)="panelOpenState = true"
+            (closed)="panelOpenState = false"
+            [expanded]="true"
+          >
+            <mat-expansion-panel-header>
+              <mat-panel-title> Informacion de contactos </mat-panel-title>
+            </mat-expansion-panel-header>
+            <h5>Contacto 1</h5>
+            <div
+              class="form-row"
+              formGroupName="contact1"
+              style="margin: 0 1rem"
+            >
+              <mat-form-field class="full-width" appearance="fill">
+                <mat-label>Nombre</mat-label>
+                <input matInput formControlName="name" />
+              </mat-form-field>
+              <mat-form-field class="full-width" appearance="fill">
+                <mat-label>Telefono</mat-label>
+                <input matInput formControlName="phone" />
+              </mat-form-field>
+            </div>
+            <h5>Contacto 2</h5>
+            <div
+              class="form-row"
+              formGroupName="contact2"
+              style="margin: 0 1rem"
+            >
+              <mat-form-field class="full-width" appearance="fill">
+                <mat-label>Nombre</mat-label>
+                <input matInput formControlName="name" />
+              </mat-form-field>
+              <mat-form-field class="full-width" appearance="fill">
+                <mat-label>Telefono</mat-label>
+                <input matInput formControlName="phone" />
+              </mat-form-field>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+      <br>
+      <br>
+      <div formGroupName="fiscalData">
+        <mat-accordion>
+          <mat-expansion-panel
+            (opened)="panelOpenState = true"
+            (closed)="panelOpenState = false"
+          >
+            <mat-expansion-panel-header>
+              <mat-panel-title> Informacion fiscal</mat-panel-title>
+            </mat-expansion-panel-header>
+            <div
+              class="form-row"
+              style="margin: 0 1rem"
+            >
+              <mat-form-field class="full-width" appearance="fill">
+                <mat-label>Direccion fiscal</mat-label>
+                <input matInput formControlName="fiscalAddress" />
+              </mat-form-field>
+            </div>
+            <div
+              class="form-row"
+              style="margin: 0 1rem"
+            >
+              <mat-form-field class="full-width" appearance="fill">
+                <mat-label>Codigo postal</mat-label>
+                <input matInput formControlName="postalCode" />
+              </mat-form-field>
+              <mat-form-field class="full-width" appearance="fill">
+                <mat-label>Regimen</mat-label>
+                <input matInput formControlName="regime" />
+              </mat-form-field>
+            </div>
+            <div
+              class="form-row"
+              style="margin: 0 1rem"
+            >
+              <mat-form-field class="full-width" appearance="fill">
+                <mat-label>RFC</mat-label>
+                <input matInput formControlName="rfc" />
+              </mat-form-field>
+              <mat-form-field class="full-width" appearance="fill">
+                <mat-label>Razon social</mat-label>
+                <input matInput formControlName="socialReason" />
+              </mat-form-field>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+      <div class="buttons-container">
+        <button mat-raised-button color="primary" (click)="createClient()" [disabled]="!mainForm.valid">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>

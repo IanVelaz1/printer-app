@@ -1,0 +1,50 @@
+.main-container {
+  height: calc(100vh - 200px);
+}
+
+.filters-container {
+  width: 80%;
+  margin: 0 auto;
+  border: 1px solid rgb(195, 195, 195);
+  margin-top: 1rem;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.form-filters {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 40px;
+  margin-top: 20px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.buttons-container {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+}
+
+.table-container {
+  width: 80%;
+  margin: 10px auto;
+  padding: 10px;
+}
+
+.table-container > table {
+  width: 100%;
+}
+
+.mat-row .mat-cell {
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+  cursor: pointer;
+}
+
+.mat-row:hover .mat-cell {
+  border-color: black;
+}

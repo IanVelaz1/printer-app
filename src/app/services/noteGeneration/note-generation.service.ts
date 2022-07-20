@@ -47,7 +47,7 @@ export class NoteGenerationService {
           columns: [
             [
               {
-                text: data?.client,
+                text: data?.client?.name,
                 bold:true
               },
             /*   { text: this.invoice.address },
@@ -64,11 +64,15 @@ export class NoteGenerationService {
                 alignment: 'right'
               },
               {
-                text: `Fecha: ${new Date(data?.noteDate).toLocaleString()}`,
+                text: `Fecha: ${new Date(data?.noteDate).toLocaleString('es-MX')}`,
                 alignment: 'right'
               },
               { 
                 text: `Id venta : ${data?._id}`,
+                alignment: 'right'
+              },
+              { 
+                text: `Fecha de entrega : ${data?.items[0] && data?.items[0].deliveryDate ? new Date(data?.items[0].deliveryDate).toLocaleString('es-MX'): ''}`,
                 alignment: 'right'
               }
             ]
@@ -199,11 +203,15 @@ export class NoteGenerationService {
             ],
             [
               {
-                text: `Fecha: ${new Date(data?.noteDate).toLocaleString()}`,
+                text: `Fecha: ${new Date(data?.noteDate).toLocaleString('es-MX')}`,
                 alignment: 'right'
               },
               { 
                 text: `Id venta : ${data?._id}`,
+                alignment: 'right'
+              },
+              { 
+                text: `Fecha de entrega : ${data?.items[0] && data?.items[0].deliveryDate ? new Date(data?.items[0].deliveryDate).toLocaleString('es-MX'): ''}`,
                 alignment: 'right'
               }
             ]
@@ -216,11 +224,11 @@ export class NoteGenerationService {
         {
           table: {
             headerRows: 1,
-            widths: ['*', 'auto'],
+            widths: ['auto', '*'],
             heights: [20, ...heights, 35, 35, 35],
             body: [
-              ['Descripcion', 'Cantidad'],
-              ...data?.items.map(p => ([p.fileName, p.quantity]))
+              ['Cantidad', 'Descripcion'],
+              ...data?.items.map(p => ([p.quantity, p.fileName]))
             ]
           }
         },

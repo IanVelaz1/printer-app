@@ -4,6 +4,7 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ModalService } from '../../services/modals/modal.service';
 import { NotesService } from '../../services/notes/notes.service';
 import { NoteGenerationService } from 'src/app/services/noteGeneration/note-generation.service';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -20,7 +21,7 @@ export class SellFormComponent implements OnInit {
 
 
   saleItem: any = {
-    client: '',
+    client: {},
     items: [],
     totalSalePrice: 0,
     noteDate: new Date(),
@@ -35,18 +36,42 @@ export class SellFormComponent implements OnInit {
 
   saleDifference: number;
 
+  sellId: string;
+
   constructor(
     private modalService: BsModalService,
     private modalLoadingService: ModalService, 
     private notesService: NotesService,
-    private noteGenerationService: NoteGenerationService
+    private noteGenerationService: NoteGenerationService,
+    private activatedRoute: ActivatedRoute
     ) { }
 
   ngOnInit() {
+    this.activatedRoute.params.subscribe({
+      next: (value => {
+        if(value.id) {
+          this.sellId = value.id;
+          this.getSpecificNoteInformation();
+        } 
+      })
+    })
+  }
+
+  getSpecificNoteInformation() {
+    this.notesService.getNoteById(this.sellId).subscribe({
+      next: (response => {
+        if(response) {
+          this.saleItem = response['success'];
+          this.formObject = response['success'].items;
+        }
+      })
+    })
   }
 
   ngAfterViewInit() {
-    this.openAskModal();
+    if(!this.sellId) {
+      this.openAskModal();
+    }
   }
 
   openAskModal() {
@@ -135,7 +160,7 @@ export class SellFormComponent implements OnInit {
   }
 
   validateMainData() {
-    if (this.saleItem.client != '' && this.saleItem.noteDate != undefined) {
+    if (this.saleItem.client?.name != '' && this.saleItem.noteDate != undefined && this.saleItem.client?._id) {
       this.saleItem.formError = false;
       return true
     }
@@ -149,7 +174,6 @@ export class SellFormComponent implements OnInit {
       total += item.totalItemPrice;
     }
     return total;
-    debugger
   }
 
   calculateItemPrice(index) {
@@ -176,7 +200,7 @@ export class SellFormComponent implements OnInit {
     let notificationObj = {};
     this.modalLoadingService.launchModalService(true);
     this.modalSale.hide();
- 
+    this.saleItem.client = this.saleItem.client._id;
     this.notesService.saveNote(this.saleItem).subscribe(response => {
       this.getSpecificOrder(response['success']['_id']);
       //
@@ -188,7 +212,6 @@ export class SellFormComponent implements OnInit {
   getSpecificOrder(id: string) {
     this.notesService.getNoteById(id).subscribe({
       next: (response => {
-        debugger
         if(response['success']) {
           this.noteGenerationService.generateAndPrintPdf(response['success']);
         }
@@ -227,7 +250,7 @@ export class SellFormComponent implements OnInit {
     }
 
     let timeout = setTimeout(() => {
-        this.notesService.searchForClient(this.saleItem.client).subscribe(response => {
+        this.notesService.searchForClient(this.saleItem.client.name).subscribe(response => {
           if (response['ok'] && response['ok'] == true) {
             this.clientsResults = response['success'];
           }
@@ -238,7 +261,7 @@ export class SellFormComponent implements OnInit {
   }
 
   selectClient(client){
-    this.saleItem.client = client.name;
+    this.saleItem.client = client;
     this.clientsResults = [];
   }
 
@@ -251,6 +274,23 @@ export class SellFormComponent implements OnInit {
 
   clearClientList(){
     this.clientsResults = [];
+  }
+
+  editOrder() {
+    let size = this.validateFormFields()
+    if (size === this.formObject.length && this.validateMainData()) {
+      this.saleItem.totalSalePrice = this.calculateTotals();
+      this.saleItem.items = this.formObject;
+      this.saleItem.client = this.saleItem.client._id;
+      this.notesService.editNote(this.saleItem, this.sellId).subscribe({
+        next: (response => {
+          if(response['ok']) {
+            this.getSpecificNoteInformation();
+          }
+        })
+      })
+    }
+    
   }
 
 }

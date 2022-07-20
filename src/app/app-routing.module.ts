@@ -25,7 +25,9 @@ const routes: Routes = [
   { path: '', component: IndexComponent, canActivate: [AuthGuardService] },
   { path: 'login', component: LoginComponent },
   { path: 'sales', component: SellFormComponent, canActivate: [AuthGuardService] },
+  { path: 'sales/:id', component: SellFormComponent, canActivate: [AuthGuardService] },
   { path: 'list-sales', component: ListSalesComponent, canActivate: [AuthGuardService] },
+  { path: 'clients', loadChildren: () => import('./modules/clients/clients.module').then((m) => m.ClientsModule)},
   { path: '**', redirectTo: '' }
 ];
 

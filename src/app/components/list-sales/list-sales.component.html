@@ -50,7 +50,7 @@
         <p class="itemTitle">{{sale.noteDate | date: 'dd/MM/yyyy'}}</p>
       </div>
       <div class="item">
-        <p class="itemTitle">{{sale.client}}</p>
+        <p class="itemTitle">{{sale.client?.name}}</p>
       </div>
       <div class="item">
         <p class="itemTitle">{{sale.status}}</p>
@@ -92,9 +92,9 @@
             <input matInput placeholder="#00001" name="noteId" [(ngModel)]="selectedSale._id" disabled>
           </mat-form-field>
 
-          <mat-form-field class="fieldContainer">
+          <mat-form-field class="fieldContainer" *ngIf="selectedSale.client">
             <mat-label>Cliente</mat-label>
-            <input matInput placeholder="#00001" name="noteId" [(ngModel)]="selectedSale.client" disabled>
+            <input matInput placeholder="#00001" name="noteId" [(ngModel)]="selectedSale.client.name" disabled>
           </mat-form-field>
 
 
@@ -279,6 +279,7 @@
           <div class="buttonsContainer">
             <button mat-raised-button class="buttons" color="warn" (click)="closeModal()">Cerrar</button>
             <button mat-raised-button class="buttons" color="primary" *ngIf="selectedSale.status == 'Por pagar'" (click)="openModalPayment()">Abonar pago</button>
+            <button mat-raised-button class="buttons" color="primary" (click)="editSale()">Editar Venta</button>
             <button mat-raised-button class="buttons" color="primary" (click)="printSale()">Imprimir Recibo</button>
             <button mat-raised-button class="buttons" color="primary" (click)="printProductionOrder()">Imprimir Orden Produccion</button>
           </div>
