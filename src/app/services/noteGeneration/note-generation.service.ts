@@ -47,7 +47,11 @@ export class NoteGenerationService {
           columns: [
             [
               {
-                text: data?.client?.name,
+                text: `Nombre: ${data?.client?.name}`,
+                bold:true
+              },
+              {
+                text: `Telefono: ${data?.client?.address?.phone}`,
                 bold:true
               },
             /*   { text: this.invoice.address },
@@ -74,6 +78,10 @@ export class NoteGenerationService {
               { 
                 text: `Fecha de entrega : ${data?.items[0] && data?.items[0].deliveryDate ? new Date(data?.items[0].deliveryDate).toLocaleString('es-MX'): ''}`,
                 alignment: 'right'
+              },
+              { 
+                text: `Hora de entrega : ${data?.items[0] && data?.items[0].deliveryTime ? data?.items[0].deliveryTime : ''}`,
+                alignment: 'right'
               }
             ]
           ]
@@ -85,14 +93,14 @@ export class NoteGenerationService {
         {
           table: {
             headerRows: 1,
-            widths: ['*', 'auto', 'auto', 'auto'],
+            widths: ['auto', '*', 'auto', 'auto'],
             heights: [20, ...heights, 35, 35, 35],
             body: [
-              ['Descripcion', 'Precio', 'Cantidad', 'Total'],
-              ...data?.items.map(p => ([p.fileName, p.unitPrice, p.quantity, (p.unitPrice * p.quantity).toFixed(2)])),
-              [{text: 'Pagado', colSpan: 3}, {}, {}, Number(data?.amountPayed).toFixed(2)],
-              [{text: 'Por Pagar', colSpan: 3}, {}, {}, Number(data?.totalSalePrice -  data?.amountPayed).toFixed(2)],
-              [{text: 'Total', colSpan: 3}, {}, {}, data?.items.reduce((sum, p)=> sum + (p.unitPrice * p.quantity), 0).toFixed(2)]
+              ['Cantidad', 'Descripcion', 'Precio', 'Total'],
+              ...data?.items.map(p => ([p.quantity, p.fileName, `$${p.unitPrice}`, `$${(p.unitPrice * p.quantity).toFixed(2)}`])),
+              [{text: 'Pagado', colSpan: 3}, {}, {}, `$${Number(data?.amountPayed).toFixed(2)}`],
+              [{text: 'Por Pagar', colSpan: 3}, {}, {}, `$${Number(data?.totalSalePrice -  data?.amountPayed).toFixed(2)}`],
+              [{text: 'Total', colSpan: 3}, {}, {}, `$${data?.items.reduce((sum, p)=> sum + (p.unitPrice * p.quantity), 0).toFixed(2)}`]
             ]
           }
         },
@@ -194,7 +202,11 @@ export class NoteGenerationService {
           columns: [
             [
               {
-                text: data?.client,
+                text: `Nombre: ${data?.client?.name}`,
+                bold:true
+              },
+              {
+                text: `Telefono: ${data?.client?.address?.phone}`,
                 bold:true
               },
             /*   { text: this.invoice.address },
@@ -212,6 +224,10 @@ export class NoteGenerationService {
               },
               { 
                 text: `Fecha de entrega : ${data?.items[0] && data?.items[0].deliveryDate ? new Date(data?.items[0].deliveryDate).toLocaleString('es-MX'): ''}`,
+                alignment: 'right'
+              },
+              { 
+                text: `Hora de entrega : ${data?.items[0] && data?.items[0].deliveryTime ? data?.items[0].deliveryTime : ''}`,
                 alignment: 'right'
               }
             ]

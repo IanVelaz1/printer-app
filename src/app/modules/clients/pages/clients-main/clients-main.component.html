@@ -16,6 +16,10 @@
     </div>
   </div>
   <div class="table-container">
+    <div class="buttons-container">
+      <button mat-raised-button color="primary" (click)="createClient()">Crear cliente</button>
+    </div>
+    <br>
     <table mat-table [dataSource]="foundClients" class="mat-elevation-z8">
 
       <!--- Note that these columns can be defined in any order.

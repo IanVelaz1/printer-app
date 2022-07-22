@@ -22,6 +22,10 @@
     padding: 30px;
 }
 
+.col10 {
+    padding: 0 30px;
+}
+
 .fieldContainer {
     margin: 0 20px;
 }
@@ -70,4 +74,13 @@
     font-size: 1.3rem;
     background-color: #999999;
     color: white;
+}
+
+.dateTimeInput {
+    display: flex;
+    flex-flow: column;
+}
+
+.dateTimeInput > input {
+    width: 100%;
 }

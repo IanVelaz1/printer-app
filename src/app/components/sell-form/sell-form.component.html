@@ -1,214 +1,446 @@
-<div class="formContainer" [ngClass]="{'errorFields': saleItem.formError}">
-  <h2 class="title" *ngIf="!this.sellId">
-    Venta nueva
-  </h2>
-  <h2 class="title" *ngIf="this.sellId">
-    Editar Venta
-  </h2>
+<div class="formContainer" [ngClass]="{ errorFields: saleItem.formError }">
+  <h2 class="title" *ngIf="!this.sellId">Venta nueva</h2>
+  <h2 class="title" *ngIf="this.sellId">Editar Venta</h2>
   <div class="col12">
-
     <mat-form-field class="w100">
       <mat-label>Fecha *</mat-label>
-      <input matInput (select)="selectedDate($event)" [matDatepicker]="picker" disabled [(ngModel)]="saleItem.noteDate">
+      <input
+        matInput
+        (select)="selectedDate($event)"
+        [matDatepicker]="picker"
+        disabled
+        [(ngModel)]="saleItem.noteDate"
+      />
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker (select)="selectedDate($event)" #picker disabled="false"></mat-datepicker>
+      <mat-datepicker
+        (select)="selectedDate($event)"
+        #picker
+        disabled="false"
+      ></mat-datepicker>
     </mat-form-field>
 
     <mat-form-field class="w100">
       <mat-label>Cliente *</mat-label>
-      <input matInput placeholder="Nombre cliente" name="client" [disabled]="this.sellId" [(ngModel)]="saleItem.client.name" (keyup)="searchClient()">
+      <input
+        matInput
+        placeholder="Nombre cliente"
+        name="client"
+        [disabled]="this.sellId"
+        [(ngModel)]="saleItem.client.name"
+        (keyup)="searchClient()"
+      />
     </mat-form-field>
 
     <div class="clientsResults">
-        <div class="itemResult" *ngFor="let client of clientsResults" (click)="selectClient(client)">
-            {{client.name}}
-        </div>
+      <div
+        class="itemResult"
+        *ngFor="let client of clientsResults"
+        (click)="selectClient(client)"
+      >
+        {{ client.name }}
+      </div>
     </div>
-
   </div>
-
 </div>
-<div class="formContainer" *ngFor="let saleItem of formObject; let i = index"
-  [ngClass]="{'errorFields': saleItem.formError}">
+<div
+  class="formContainer"
+  *ngFor="let saleItem of formObject; let i = index"
+  [ngClass]="{ errorFields: saleItem.formError }"
+>
   <div *ngIf="saleItem.isPrintingItem == true">
     <div class="col12">
       <mat-form-field class="w100">
         <mat-label>Fecha de entrega</mat-label>
-        <input matInput (select)="selectedDate($event)" [matDatepicker]="picker" disabled [(ngModel)]="saleItem.deliveryDate">
+        <input
+          matInput
+          (select)="selectedDate($event)"
+          [matDatepicker]="picker"
+          disabled
+          [(ngModel)]="saleItem.deliveryDate"
+        />
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker (select)="selectedDate($event)" #picker disabled="false"></mat-datepicker>
+        <mat-datepicker
+          (select)="selectedDate($event)"
+          #picker
+          disabled="false"
+        ></mat-datepicker>
       </mat-form-field>
+    </div>
+
+    <div class="col10">
+      <div class="dateTimeInput">
+        <label for="time"> Hora </label>
+        <input type="time" id="time" [(ngModel)]="saleItem.deliveryTime"/>
+      </div>
     </div>
 
     <div class="col12">
       <mat-form-field class="w100">
         <mat-label>Nombre de archivo *</mat-label>
-        <input matInput placeholder="Nombre de archivo" name="fileName" [(ngModel)]="saleItem.fileName">
+        <input
+          matInput
+          placeholder="Nombre de archivo"
+          name="fileName"
+          [(ngModel)]="saleItem.fileName"
+        />
       </mat-form-field>
     </div>
     <div class="col4">
       <mat-form-field class="fieldContainer">
         <mat-label>Piezas *</mat-label>
-        <input matInput placeholder="Cantidad" name="quantity" (keyup)="calculateTotalItemPrice(i)"
-          [(ngModel)]="saleItem.quantity">
+        <input
+          matInput
+          placeholder="Cantidad"
+          name="quantity"
+          (keyup)="calculateTotalItemPrice(i)"
+          [(ngModel)]="saleItem.quantity"
+        />
       </mat-form-field>
       <mat-form-field class="fieldContainer">
         <mat-label>Largo <sup>M2</sup> *</mat-label>
-        <input matInput type="number" placeholder="Largo" name="length" (change)="calculateSize(i)"
-          (keyup)="calculateSize(i)" [(ngModel)]="saleItem.length">
+        <input
+          matInput
+          type="number"
+          placeholder="Largo"
+          name="length"
+          (change)="calculateSize(i)"
+          (keyup)="calculateSize(i)"
+          [(ngModel)]="saleItem.length"
+        />
       </mat-form-field>
       <mat-form-field class="fieldContainer">
         <mat-label>Ancho <sup>M2</sup> *</mat-label>
-        <input matInput type="number" placeholder="Ancho" name="height" (change)="calculateSize(i)"
-          (keyup)="calculateSize(i)" [(ngModel)]="saleItem.height">
+        <input
+          matInput
+          type="number"
+          placeholder="Ancho"
+          name="height"
+          (change)="calculateSize(i)"
+          (keyup)="calculateSize(i)"
+          [(ngModel)]="saleItem.height"
+        />
       </mat-form-field>
       <mat-form-field class="fieldContainer">
         <mat-label>Total M<sup>2</sup> *</mat-label>
-        <input matInput placeholder="total M2" name="totalMeterSquares" disabled
-          [(ngModel)]="saleItem.totalMeterSquares">
+        <input
+          matInput
+          placeholder="total M2"
+          name="totalMeterSquares"
+          disabled
+          [(ngModel)]="saleItem.totalMeterSquares"
+        />
       </mat-form-field>
     </div>
     <div class="col2">
       <mat-form-field class="fieldContainer">
         <mat-label>Precio unitario *</mat-label>
-        <input matInput placeholder="precio unitario" (keyup)="calculatePiecePrice(i)" name="unitPrice"
-          [(ngModel)]="saleItem.unitPrice">
+        <input
+          matInput
+          placeholder="precio unitario"
+          (keyup)="calculatePiecePrice(i)"
+          name="unitPrice"
+          [(ngModel)]="saleItem.unitPrice"
+        />
       </mat-form-field>
       <mat-form-field class="fieldContainer">
         <mat-label>Precio por pieza *</mat-label>
-        <input matInput placeholder="precio por pieza" disabled name="unitTotalPrice"
-          [(ngModel)]="saleItem.unitTotalPrice">
+        <input
+          matInput
+          placeholder="precio por pieza"
+          disabled
+          name="unitTotalPrice"
+          [(ngModel)]="saleItem.unitTotalPrice"
+        />
       </mat-form-field>
       <mat-form-field class="fieldContainer">
         <mat-label>Ajuste</mat-label>
-        <input matInput placeholder="precio por pieza" name="adjustment"
-          [(ngModel)]="saleItem.adjustment" (keyup)="calculateSize(i)">
+        <input
+          matInput
+          placeholder="precio por pieza"
+          name="adjustment"
+          [(ngModel)]="saleItem.adjustment"
+          (keyup)="calculateSize(i)"
+        />
       </mat-form-field>
     </div>
     <div class="col12">
-      <mat-form-field class=" w100">
+      <mat-form-field class="w100">
         <mat-label>Observaciones</mat-label>
-        <textarea matInput placeholder="Observaciones" name="observations"
-          [(ngModel)]="saleItem.observations"></textarea>
+        <textarea
+          matInput
+          placeholder="Observaciones"
+          name="observations"
+          [(ngModel)]="saleItem.observations"
+        ></textarea>
       </mat-form-field>
     </div>
     <div class="buttonContainer">
-      <h3 class="title"> TOTAL : {{saleItem.totalItemPrice | currency: 'USD'}}</h3>
+      <h3 class="title">
+        TOTAL : {{ saleItem.totalItemPrice | currency: "USD" }}
+      </h3>
     </div>
-    <h3 class="errorMsg" *ngIf="saleItem.formError"> Los campos macados con * son obligatorios</h3>
+    <h3 class="errorMsg" *ngIf="saleItem.formError">
+      Los campos macados con * son obligatorios
+    </h3>
     <div class="buttonContainer">
-      <button mat-raised-button class="buttons" color="warn" (click)="removeSale(i)" *ngIf="i != 0">Eliminar
-        artículo</button>
-      <button mat-raised-button class="buttons" (click)="openAskModal()">Agregar artículo</button>
-      <button mat-raised-button class="buttons" (click)="saveOrder()" color="primary" *ngIf="!this.sellId">Guardar</button>
-      <button mat-raised-button class="buttons" (click)="editOrder()" color="primary" *ngIf="this.sellId">Guardar cambios</button>
-
+      <button
+        mat-raised-button
+        class="buttons"
+        color="warn"
+        (click)="removeSale(i)"
+        *ngIf="i != 0"
+      >
+        Eliminar artículo
+      </button>
+      <button mat-raised-button class="buttons" (click)="openAskModal()">
+        Agregar artículo
+      </button>
+      <button
+        mat-raised-button
+        class="buttons"
+        (click)="saveOrder()"
+        color="primary"
+        *ngIf="!this.sellId"
+      >
+        Guardar
+      </button>
+      <button
+        mat-raised-button
+        class="buttons"
+        (click)="editOrder()"
+        color="primary"
+        *ngIf="this.sellId"
+      >
+        Guardar cambios
+      </button>
     </div>
-
-
   </div>
 
-
-
   <div *ngIf="saleItem.isPrintingItem == false">
-
     <div class="col12">
       <mat-form-field class="w100">
         <mat-label>Fecha de entrega</mat-label>
-        <input matInput (select)="selectedDate($event)" [matDatepicker]="picker" disabled [(ngModel)]="saleItem.deliveryDate">
+        <input
+          matInput
+          (select)="selectedDate($event)"
+          [matDatepicker]="picker"
+          disabled
+          [(ngModel)]="saleItem.deliveryDate"
+        />
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker (select)="selectedDate($event)" #picker disabled="false"></mat-datepicker>
+        <mat-datepicker
+          (select)="selectedDate($event)"
+          #picker
+          disabled="false"
+        ></mat-datepicker>
       </mat-form-field>
+    </div>
+
+    <div class="col10">
+      <div class="dateTimeInput">
+        <label for="time"> Hora </label>
+        <input type="time" id="time" [(ngModel)]="saleItem.deliveryTime"/>
+      </div>
     </div>
 
     <div class="col12">
       <mat-form-field class="w100">
         <mat-label>Nombre del artículo *</mat-label>
-        <input matInput placeholder="Nombre de archivo" name="fileName" [(ngModel)]="saleItem.fileName">
+        <input
+          matInput
+          placeholder="Nombre de archivo"
+          name="fileName"
+          [(ngModel)]="saleItem.fileName"
+        />
       </mat-form-field>
     </div>
 
     <div class="col2">
-
       <mat-form-field class="fieldContainer">
         <mat-label>Piezas *</mat-label>
-        <input matInput placeholder="Cantidad" name="quantity" (keyup)="calculateItemPrice(i)"
-          [(ngModel)]="saleItem.quantity">
+        <input
+          matInput
+          placeholder="Cantidad"
+          name="quantity"
+          (keyup)="calculateItemPrice(i)"
+          [(ngModel)]="saleItem.quantity"
+        />
       </mat-form-field>
       <mat-form-field class="fieldContainer">
         <mat-label>Precio *</mat-label>
-        <input matInput type="number" placeholder="Precio" name="unitPrice" (change)="calculateItemPrice(i)"
-          (keyup)="calculateItemPrice(i)" [(ngModel)]="saleItem.unitPrice">
+        <input
+          matInput
+          type="number"
+          placeholder="Precio"
+          name="unitPrice"
+          (change)="calculateItemPrice(i)"
+          (keyup)="calculateItemPrice(i)"
+          [(ngModel)]="saleItem.unitPrice"
+        />
       </mat-form-field>
       <mat-form-field class="fieldContainer">
         <mat-label>Ajuste</mat-label>
-        <input matInput placeholder="precio por pieza" name="adjustment"
-          [(ngModel)]="saleItem.adjustment" (keyup)="calculateItemPrice(i)">
+        <input
+          matInput
+          placeholder="precio por pieza"
+          name="adjustment"
+          [(ngModel)]="saleItem.adjustment"
+          (keyup)="calculateItemPrice(i)"
+        />
       </mat-form-field>
     </div>
- 
+
     <div class="col12">
-      <mat-form-field class=" w100">
+      <mat-form-field class="w100">
         <mat-label>Observaciones</mat-label>
-        <textarea matInput placeholder="Observaciones" name="observations"
-          [(ngModel)]="saleItem.observations"></textarea>
+        <textarea
+          matInput
+          placeholder="Observaciones"
+          name="observations"
+          [(ngModel)]="saleItem.observations"
+        ></textarea>
       </mat-form-field>
     </div>
     <div class="buttonContainer">
-      <h3 class="title"> TOTAL : {{saleItem.totalItemPrice | currency: 'USD'}}</h3>
+      <h3 class="title">
+        TOTAL : {{ saleItem.totalItemPrice | currency: "USD" }}
+      </h3>
     </div>
-    <h3 class="errorMsg" *ngIf="saleItem.formError"> Los campos macados con * son obligatorios</h3>
+    <h3 class="errorMsg" *ngIf="saleItem.formError">
+      Los campos macados con * son obligatorios
+    </h3>
     <div class="buttonContainer">
-      <button mat-raised-button class="buttons" color="warn" (click)="removeSale(i)" *ngIf="i != 0">Eliminar
-        artículo</button>
-      <button mat-raised-button class="buttons" (click)="openAskModal()">Agregar artículo</button>
-      <button mat-raised-button class="buttons" (click)="saveOrder()" color="primary" *ngIf="!this.sellId">Guardar</button>
-      <button mat-raised-button class="buttons" (click)="editOrder()" color="primary" *ngIf="this.sellId">Guardar cambios</button>
+      <button
+        mat-raised-button
+        class="buttons"
+        color="warn"
+        (click)="removeSale(i)"
+        *ngIf="i != 0"
+      >
+        Eliminar artículo
+      </button>
+      <button mat-raised-button class="buttons" (click)="openAskModal()">
+        Agregar artículo
+      </button>
+      <button
+        mat-raised-button
+        class="buttons"
+        (click)="saveOrder()"
+        color="primary"
+        *ngIf="!this.sellId"
+      >
+        Guardar
+      </button>
+      <button
+        mat-raised-button
+        class="buttons"
+        (click)="editOrder()"
+        color="primary"
+        *ngIf="this.sellId"
+      >
+        Guardar cambios
+      </button>
     </div>
-
-
   </div>
-
-
 </div>
 
-<div class="modal fade" [config]="{ignoreBackdropClick:true}" bsModal #modalSale="bs-modal" tabindex="-1" role="dialog" aria-labelledby="dialog-events-name">
+<div
+  class="modal fade"
+  [config]="{ ignoreBackdropClick: true }"
+  bsModal
+  #modalSale="bs-modal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="dialog-events-name"
+>
   <div class="modal-dialog modal-md">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title pull-left">Total de Venta</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <button
+          type="button"
+          class="close pull-right"
+          aria-label="Close"
+          (click)="modalRef.hide()"
+        >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <h2 class="title">Total: <input type="number" class="success-total" name="amountPayed" [(ngModel)]="saleItem.amountPayed" (keyup)="comparePrice()"></h2>
-        <h2 class="title-error" *ngIf="saleDifference > 0">Por pagar: {{saleDifference | currency: 'USD'}} </h2>
+        <h2 class="title">
+          Total:
+          <input
+            type="number"
+            class="success-total"
+            name="amountPayed"
+            [(ngModel)]="saleItem.amountPayed"
+            (keyup)="comparePrice()"
+          />
+        </h2>
+        <h2 class="title-error" *ngIf="saleDifference > 0">
+          Por pagar: {{ saleDifference | currency: "USD" }}
+        </h2>
       </div>
       <div class="modal-footer">
-        <button mat-raised-button class="buttons" color="warn" (click)="closeModal()">Cancelar</button>
-        <button mat-raised-button class="buttons" (click)="endOrder()" color="primary" *ngIf="saleItem.amountPayed > 1">Finalizar Venta</button>
+        <button
+          mat-raised-button
+          class="buttons"
+          color="warn"
+          (click)="closeModal()"
+        >
+          Cancelar
+        </button>
+        <button
+          mat-raised-button
+          class="buttons"
+          (click)="endOrder()"
+          color="primary"
+          *ngIf="saleItem.amountPayed > 1"
+        >
+          Finalizar Venta
+        </button>
       </div>
     </div>
   </div>
 </div>
 
-
-
-<div class="modal fade" [config]="{ignoreBackdropClick:true}" bsModal #modal="bs-modal" tabindex="-1" role="dialog" aria-labelledby="dialog-events-name">
+<div
+  class="modal fade"
+  [config]="{ ignoreBackdropClick: true }"
+  bsModal
+  #modal="bs-modal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="dialog-events-name"
+>
   <div class="modal-dialog modal-md">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 id="dialog-events-name" class="modal-title pull-left">Tipo de artículo</h4>
-       <!--  <button type="button" class="close pull-right" aria-label="Close" (click)="hideModal()">
+        <h4 id="dialog-events-name" class="modal-title pull-left">
+          Tipo de artículo
+        </h4>
+        <!--  <button type="button" class="close pull-right" aria-label="Close" (click)="hideModal()">
           <span aria-hidden="true">&times;</span>
         </button> -->
       </div>
       <div class="modal-body">
         <div class="col2">
-          <button mat-raised-button class="buttons" (click)="addPrintingProduct()" color="primary">Lona</button>
-          <button mat-raised-button class="buttons" (click)="addPromotionalProduct()"
-            color="primary">Promocionales</button>
+          <button
+            mat-raised-button
+            class="buttons"
+            (click)="addPrintingProduct()"
+            color="primary"
+          >
+            Lona
+          </button>
+          <button
+            mat-raised-button
+            class="buttons"
+            (click)="addPromotionalProduct()"
+            color="primary"
+          >
+            Promocionales
+          </button>
         </div>
       </div>
     </div>

@@ -64,6 +64,10 @@ export class ClientsMainComponent implements OnInit {
     this.queryClients();
   }
 
+  createClient() {
+    this.router.navigateByUrl('/clients/createClient');
+  }
+
   navigateToClient(client) {
     this.router.navigateByUrl(`/clients/editClient/${client._id}`);
   }

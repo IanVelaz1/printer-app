@@ -92,6 +92,7 @@ export class SellFormComponent implements OnInit {
       formError: false,
       isPrintingItem: true,
       deliveryDate: undefined,
+      deliveryTime: undefined,
       adjustment:0
     });
     this.autoShownModal.hide();
