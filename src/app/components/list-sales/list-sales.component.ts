@@ -32,7 +32,8 @@ export class ListSalesComponent implements OnInit {
   queryObj = {
     date: '',
     noteId: '',
-    client: ''
+    client: '',
+    clientId: ''
   }
 
   salesList:any[]= [];
@@ -42,6 +43,8 @@ export class ListSalesComponent implements OnInit {
   paymentAmount: number;
 
   toBePayed: number;
+
+  clientsResults: any[] = [];
 
   searchForSale() {
     let queryString = `?`;
@@ -59,7 +62,7 @@ export class ListSalesComponent implements OnInit {
     }
 
     if (this.queryObj.client && this.queryObj.client.length > 0) {
-      clientString = `client=${this.queryObj.client}`
+      clientString = `client=${this.queryObj.clientId}`
       queryString = queryString.concat(clientString);
       queryString = queryString.concat('&');
     }
@@ -139,6 +142,29 @@ export class ListSalesComponent implements OnInit {
         }
       })
     });
+  }
+
+  searchClient() {
+
+    if(this.queryObj.client?.length === 0){
+      this.clientsResults = [];
+    }
+
+    let timeout = setTimeout(() => {
+        this.notesService.searchForClient(this.queryObj.client).subscribe(response => {
+          if (response['ok'] && response['ok'] == true) {
+            this.clientsResults = response['success'];
+          }
+        });
+        clearInterval(timeout);
+    }, 500);
+
+  }
+
+  selectClient(client){
+    this.queryObj.clientId = client._id;
+    this.queryObj.client = client.name;
+    this.clientsResults = [];
   }
 
   editSale() {
