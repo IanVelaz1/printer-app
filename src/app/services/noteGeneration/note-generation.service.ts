@@ -21,7 +21,7 @@ export class NoteGenerationService {
           fit: [100, 100],
         },
         {
-          text: 'Color House',
+          text: 'DICOPRINT',
           fontSize: 16,
           alignment: 'center',
           color: '#047886'
@@ -182,7 +182,7 @@ export class NoteGenerationService {
           fit: [100, 100],
         },
         {
-          text: 'Color House',
+          text: 'DICOPRINT',
           fontSize: 16,
           alignment: 'center',
           color: '#047886'
