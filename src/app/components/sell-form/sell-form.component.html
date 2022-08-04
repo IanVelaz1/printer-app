@@ -395,7 +395,7 @@
           class="buttons"
           (click)="endOrder()"
           color="primary"
-          *ngIf="saleItem.amountPayed > 1"
+          *ngIf="saleItem.amountPayed >= 0"
         >
           Finalizar Venta
         </button>
