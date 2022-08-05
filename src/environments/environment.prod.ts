@@ -11,5 +11,6 @@ export const environment = {
   SERVICIOS_BUSCA_VENTA:GLOBAL.RUTA_GLOBAL + '/api/note/search',
   SERVICIOS_REPORTES:GLOBAL.RUTA_GLOBAL + '/api/reports',
   PAYMENTS_SERVICES: GLOBAL.RUTA_GLOBAL + '/api/payment',
-  CLIENTS_SERVICES: GLOBAL.RUTA_GLOBAL + '/api/clientsV2'
+  CLIENTS_SERVICES: GLOBAL.RUTA_GLOBAL + '/api/clientsV2',
+  NOTES_V2: GLOBAL.RUTA_GLOBAL + '/api/notesV2'
 };

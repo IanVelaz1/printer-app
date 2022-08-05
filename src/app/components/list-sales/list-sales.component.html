@@ -298,6 +298,7 @@
             <button mat-raised-button class="buttons" color="warn" (click)="closeModal()">Cerrar</button>
             <button mat-raised-button class="buttons" color="primary" *ngIf="selectedSale.status == 'Por pagar'" (click)="openModalPayment()">Abonar pago</button>
             <button mat-raised-button class="buttons" color="primary" (click)="editSale()">Editar Venta</button>
+            <button mat-raised-button class="buttons" color="primary" (click)="copySale()">Copiar Venta</button>
             <button mat-raised-button class="buttons" color="primary" (click)="printSale()">Imprimir Recibo</button>
             <button mat-raised-button class="buttons" color="primary" (click)="printProductionOrder()">Imprimir Orden Produccion</button>
           </div>

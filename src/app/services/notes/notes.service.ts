@@ -50,4 +50,9 @@ export class NotesService {
     return this.http.get(`${environment.SERVICIOS_REPORTES}`);
   }
 
+  copyNote(originalId: string) {
+    this.setHeaders();
+    return this.http.post(`${environment.NOTES_V2}/${originalId}`, {});
+  }
+
 }

@@ -171,6 +171,14 @@ export class ListSalesComponent implements OnInit {
     this.router.navigateByUrl(`/sales/${this.selectedSale._id}`);
   }
 
+  copySale() {
+    this.notesService.copyNote(this.selectedSale._id).subscribe({
+      next: (response => {
+        this.router.navigateByUrl(`/sales/${response['_id']}`);
+      })
+    })
+  }
+
   resetData() {
     this.paymentAmount = null;
   }

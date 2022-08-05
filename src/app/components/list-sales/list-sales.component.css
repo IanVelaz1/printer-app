@@ -22,6 +22,12 @@
     justify-content: flex-end;
 }
 
+.buttonsContainer {
+    display: flex;
+    flex-flow: row wrap;
+    row-gap: 10px;
+}
+
 .buttons {
     margin: 0 0 0 15px;
 }
