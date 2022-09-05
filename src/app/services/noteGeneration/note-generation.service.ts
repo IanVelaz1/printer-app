@@ -65,7 +65,7 @@ export class NoteGenerationService {
                 alignment: 'right'
               },
               {
-                text: `Email: colorHouse@hotmail.com`,
+                text: `Email: dicoprint14@hotmail.com`,
                 alignment: 'right'
               },
               {

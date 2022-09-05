@@ -1,0 +1,10 @@
+.table-container {
+  width: 80%;
+  margin: 0 auto;
+  border: 1px solid rgb(195, 195, 195);
+  margin-top: 1rem;
+  border-radius: 8px;
+  padding: 20px;
+  max-height: 300px;
+  overflow-y: auto;
+}

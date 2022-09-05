@@ -1,0 +1,106 @@
+<div class="main-container">
+  <div class="filters-container">
+    <h3 style="text-align: center">Filtros de reportes</h3>
+    <form class="form-filters" [formGroup]="mainForm" autocomplete="off" (ngSubmit)="search()">
+      <div class="filter-item">
+        <mat-form-field appearance="fill">
+          <mat-label>Ingresa un rango de fechas</mat-label>
+          <mat-date-range-input [rangePicker]="picker">
+            <input
+              matStartDate
+              formControlName="initialDate"
+              placeholder="Fecha de inicio"
+            />
+            <input
+              matEndDate
+              formControlName="finalDate"
+              placeholder="Fecha Final"
+            />
+          </mat-date-range-input>
+          <mat-hint>DD/MM/YYYY – DD/MM/YYYY</mat-hint>
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field>
+        <br>
+        <br>
+        
+      </div>
+      <div class="filter-item">
+        <mat-form-field class="w100">
+          <mat-label>Cliente</mat-label>
+          <input
+            matInput
+            placeholder="Nombre cliente"
+            formControlName="client"
+          />
+        </mat-form-field>
+
+        <div class="clientsResults">
+          <div
+            class="itemResult"
+            *ngFor="let client of clientsResults"
+            (click)="selectClient(client)"
+          >
+            {{ client.name }}
+          </div>
+        </div>
+      </div>
+      <div class="filter-item" [formGroup]="mainForm">
+        <mat-form-field appearance="fill">
+          <mat-label>Estatus</mat-label>
+          <mat-select formControlName="status">
+            <mat-option *ngFor="let opt of statusOptions" [value]="opt">
+              {{ opt }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </form>
+    <div class="buttons-container">
+      <button mat-raised-button color="secondary" (click)="resetFilters()">
+        Resetear filtros
+      </button>
+    </div>
+    <br />
+    <div class="buttons-container">
+      <button mat-raised-button color="primary" (click)="search()">
+        Aplicar
+      </button>
+    </div>
+    <br>
+    <br>
+    <div class="progress-container" *ngIf="loading">
+      <mat-progress-bar mode="indeterminate" style="width: 100%;"></mat-progress-bar>
+    </div>
+  </div>
+
+  <div class="tables-container">
+    <div class="title-container">
+      <p class="title">Notas por cobrar</p>
+    </div>
+    <app-non-payed-notes [nonPayedNotes]="nonPayedNotes"></app-non-payed-notes>
+    <div class="total-owed-container">
+      Total por cobrar: {{totalOwed | currency}}
+    </div>
+    <div class="title-container">
+      <p class="title">Notas pagadas</p>
+    </div>
+    <app-payed-notes [payedNotes]="payedNotes"></app-payed-notes>
+    <div class="total-payed-container">
+      Total cobrado: {{totalPayed | currency}}
+    </div>
+
+    <div class="title-container">
+      <p class="title">
+        Clientes con deudas 
+      </p>
+    </div>
+    <app-amounts-owed-by-customer [amountsOwedByCustomer]="amountsOwedByCustomer"></app-amounts-owed-by-customer>
+    <div class="total-sale-container">
+      Total Ventas (incluye montos cobrados y por cobrar): {{totalAmountSale | currency}}
+    </div>
+  </div>
+</div>

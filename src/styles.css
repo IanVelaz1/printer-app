@@ -305,6 +305,10 @@ LEVEL 1. RESET STYLES
     text-align: center;
   }
 
+  .mat-form-field {
+    width: 100%;
+}
+
   @media (min-width: 481px){
     
     .page{
