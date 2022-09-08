@@ -17,7 +17,7 @@ export class ReportsComponent implements OnInit {
 
   statusOptions = [
     "Cualquiera",
-    "Por Pagar",
+    "Por pagar",
     "Pagado"
   ]
 
@@ -83,6 +83,10 @@ export class ReportsComponent implements OnInit {
           value.initialDate = new Date(value.initialDate).toISOString();
           value.finalDate = new Date(value.finalDate).toISOString();
         }
+
+        if(value.status === "Cualquiera") {
+          delete this.filters.status;
+        }
         this.filters = {...this.filters, ...value};
       })
     })
@@ -128,6 +132,10 @@ export class ReportsComponent implements OnInit {
 
   get clientFormControl(): FormControl {
     return this.mainForm.get('client') as FormControl;
+  }
+
+  get statusFormControl(): FormControl {
+    return this.mainForm.get('status') as FormControl;
   }
 
 }

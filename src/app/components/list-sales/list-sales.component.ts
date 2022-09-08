@@ -119,6 +119,7 @@ export class ListSalesComponent implements OnInit {
   addPayment(){
    console.log(this.selectedSale);
     const payload: Payment = {
+      date: new Date(),
       amount: Number(this.paymentAmount),
       note: this.selectedSale._id
     }

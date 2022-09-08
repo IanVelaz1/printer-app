@@ -33,7 +33,7 @@ export class ReportsService {
     }
 
     if(queryObject.status) {
-      params = params.append('status', JSON.stringify(queryObject.status));
+      params = params.append('status', queryObject.status);
     }
 
     return this.http.get(`${environment.SERVICIOS_REPORTES}/reportsByDates`, {

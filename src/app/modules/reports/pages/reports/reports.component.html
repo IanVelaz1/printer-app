@@ -81,15 +81,15 @@
     <div class="title-container">
       <p class="title">Notas por cobrar</p>
     </div>
-    <app-non-payed-notes [nonPayedNotes]="nonPayedNotes"></app-non-payed-notes>
-    <div class="total-owed-container">
+    <app-non-payed-notes [nonPayedNotes]="nonPayedNotes" *ngIf="nonPayedNotes?.length> 0"></app-non-payed-notes>
+    <div class="total-owed-container" *ngIf="nonPayedNotes?.length> 0">
       Total por cobrar: {{totalOwed | currency}}
     </div>
     <div class="title-container">
       <p class="title">Notas pagadas</p>
     </div>
-    <app-payed-notes [payedNotes]="payedNotes"></app-payed-notes>
-    <div class="total-payed-container">
+    <app-payed-notes [payedNotes]="payedNotes" *ngIf="payedNotes?.length> 0"></app-payed-notes>
+    <div class="total-payed-container" *ngIf="payedNotes?.length> 0">
       Total cobrado: {{totalPayed | currency}}
     </div>
 
